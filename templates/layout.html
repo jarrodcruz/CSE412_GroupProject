@@ -37,17 +37,17 @@
         <strong> Insert a New Sale</strong>
         <form>
           <label for="SalesPerson">Sales Person ID: &nbsp;</label>
-            <input type="number" id="spID" minlength="1" maxlength="20" required>
+            <input type="number" id="spID" minlength="1" maxlength="20" max="23" min="1" required>
           <label for="Customer">&nbsp;Customer ID: &nbsp;</label>
-            <input type="number" id="cID" minlength="1" maxlength="20" required><br><br>
+            <input type="number" id="cID" minlength="1" maxlength="20" max="98759" min="1" required><br><br>
           <label for="Product">Product ID: &nbsp;</label>
-            <input type="number" id="pID" minlength="1" maxlength="20" required>
+            <input type="number" id="pID" minlength="1" maxlength="20" max="452" min="1" required>
           <label for="Quantity">&nbsp;Quantity: &nbsp;</label>
-            <input type="number" id="qt" minlength="1" maxlength="20" required><br><br>
+            <input type="number" id="qt" minlength="1" maxlength="20" min="0" required><br><br>
           <label for="Discount">Discount: &nbsp;</label>
-            <input type="number" id="disc" minlength="4" maxlength="20" step="0.01" required>
-          <label for="totalPrice">&nbsp;Total Price:&nbsp;</label>
-            <input type="number" id="tp" minlength="4" maxlength="20" step="0.01" required><br><br>
+            <input type="number" id="disc" minlength="4" maxlength="20" step="0.01" min="0.00" required><br><br>
+          <label for="totalPrice">Total Price:&nbsp;</label>
+            <input type="number" id="tp" minlength="4" maxlength="20" min="0.00" step="0.01" required><br><br>
           <label for="salesDate">Sale Date:&nbsp;</label>
             <input type="datetime-local" id="sd" required><br><br>
           <button class="button is-white is-rounded">Submit Sale</button>

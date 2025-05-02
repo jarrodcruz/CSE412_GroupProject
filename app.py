@@ -16,7 +16,7 @@ db.init_app(app)
 # dummy home page, we can add frontend
 @app.route("/")
 def home():
-    return "Welcome to the Sales App!"
+    return render_template("layout.html")
 
 
 # get all customers, all fields
@@ -85,6 +85,8 @@ def get_products():
 @app.route("/sales", methods=["GET"])
 def get_sales():
     sales = Sale.query.all()
+    # return render_template("sales.html", sales=sales)
+
     return jsonify(
         [
             {
@@ -104,4 +106,4 @@ def get_sales():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=True)

@@ -43,7 +43,7 @@ class Product(db.Model):
     productname = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     categoryid = db.Column(db.Integer)
-    class_ = db.Column(db.String(50))
+    class_ = db.Column("class", db.String)
     modifydate = db.Column(db.Date)
     resistant = db.Column(db.String(50))
     isallergic = db.Column(db.Boolean)

@@ -16,9 +16,18 @@
       <p class="subtitle">
         <strong> Store Database Tracker</strong>!
       </p>
-      <!-- <a href="{{ url_for('get_sales') }}"> -->
+      <div class="tabs is-centered">
+        <ul>
+            <li><a href="{{ url_for('get_sales') }}">Sales</a></li>
+            <li><a href="#">Customers</a></li>
+            <li><a href="#">Employees</a></li>
+            <li><a href="#">Products</a></li>
+        </ul>
+      </div>
+      {% block content %}{% endblock %}
+      <!-- <a href="{{ url_for('get_sales') }}">
         <button class="button is-white is-rounded">See store sales</button>
-      <!-- </a> -->
+      </a> -->
     </div>
   </section>
   <section class="section">

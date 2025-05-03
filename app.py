@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from models import db, Customer, Employee, Product, Sale
 from datetime import datetime
+from sqlalchemy import func
 import uuid
 
 app = Flask(__name__)
@@ -111,10 +112,14 @@ def get_sales():
 # Insert Sale
 @app.route("/sales", methods=["POST"])
 def insert_sale():
+    max_id = db.session.query(func.max(Sale.salesid)).scalar() or 0
+    next_id = max_id + 1
+
     random_uuid = uuid.uuid4()
     txnID= str(random_uuid).replace('-','')[:25]
     try:
         new_sale = Sale(
+            salesid=next_id,
             salespersonid=request.form['salesperson'],
             customerid=request.form['customer'],
             productid=request.form['product'],

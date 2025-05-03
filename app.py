@@ -25,89 +25,76 @@ def home():
 # get all customers, all fields
 @app.route("/customers", methods=["GET"])
 def get_customers():
-    customers = Customer.query.all()  # Fetch all customers from the database
-    return jsonify(
-        [
-            {
-                "customerid": customer.customerid,
-                "firstname": customer.firstname,
-                "middleinitial": customer.middleinitial,
-                "lastname": customer.lastname,
-                "cityid": customer.cityid,
-                "address": customer.address,
-            }
-            for customer in customers
-        ]
-    )
+    customers = Customer.query.order_by(Customer.customerid).limit(1000).all()
+    return render_template("customers.html", customers=customers)
 
 
 # get all employees
 @app.route("/employees", methods=["GET"])
 def get_employees():
-    employees = Employee.query.all()
-    return jsonify(
-        [
-            {
-                "employeeid": employee.employeeid,
-                "firstname": employee.firstname,
-                "middleinitial": employee.middleinitial,
-                "lastname": employee.lastname,
-                "birthdate": employee.birthdate,
-                "gender": employee.gender,
-                "cityid": employee.cityid,
-                "hiredate": employee.hiredate,
-            }
-            for employee in employees
-        ]
-    )
+    employees = Employee.query.order_by(Employee.employeeid).limit(1000).all()
+    return render_template("employees.html", employees=employees)
 
 
 # get all products
 @app.route("/products", methods=["GET"])
 def get_products():
-    products = Product.query.all()
-
-    return jsonify(
-        [
-            {
-                "productid": product.productid,
-                "productname": product.productname,
-                "price": product.price,
-                "categoryid": product.categoryid,
-                "class": product.class_,
-                "modifydate": product.modifydate,
-                "resistant": product.resistant,
-                "isallergic": product.isallergic,
-                "vitalitydays": product.vitalitydays,
-            }
-            for product in products
-        ]
-    )
+    products = Product.query.order_by(Product.productid).limit(1000).all()
+    return render_template("products.html", products=products)
 
 
 # get all sales
 @app.route("/sales", methods=["GET"])
 def get_sales():
     # sales = Sale.query.all()
-    sales = Sale.query.limit(50).all()
+    sales = Sale.query.order_by(Sale.salesid).limit(1000).all()
     return render_template("sales.html", sales=sales)
 
-    # return jsonify(
-    #     [
-    #         {
-    #             "salesid": sale.salesid,
-    #             "salespersonid": sale.salespersonid,
-    #             "customerid": sale.customerid,
-    #             "productid": sale.productid,
-    #             "quantity": sale.quantity,
-    #             "discount": sale.discount,
-    #             "totalprice": sale.totalprice,
-    #             "salesdate": sale.salesdate,
-    #             "transactionnum": sale.transactionnum,
-    #         }
-    #         for sale in sales
-    #     ]
-    # )
+ 
+@app.route("/tableEdits")
+def table_edits():
+    return render_template("tableEdits.html")
+
+
+# Delete a sale given its product name
+@app.route("/delete-product", methods=["POST"])
+def delete_product():
+    productName = request.form.get("delete_productName")
+
+    sales = Sale.query.join(Product).filter_by(productname=productName).all()
+    if sales:
+        try:
+            for sale in sales:
+                db.session.delete(sale)
+            db.session.commit()
+            delete_status = f"All sales with product '{productName}' successfully deleted"
+        except Exception as e:
+            db.session.rollback()
+            delete_status = f"Deleting exception: {str(e)}"
+    else:
+        delete_status = f"There are no sales with product '{productName}'"
+    return render_template("tableEdits.html", delete_status=delete_status)
+
+
+# Update a product given its name
+@app.route("/update-product", methods=["POST"])
+def update_product():
+    productName_old = request.form.get("update_oldProductName")
+    productName_new = request.form.get("update_newProductName")
+
+    products = Product.query.filter_by(productname=productName_old).all()
+    if products:
+        try:
+            for product in products:
+                product.productname = productName_new
+            db.session.commit()
+            update_status = f"All products named '{productName_old}' successfully updated to '{productName_new}'"
+        except Exception as e:
+            db.session.rollback()
+            update_status = f"Updating exception: {str(e)}"
+    else:
+        update_status = f"There are no products named '{productName_old}'"
+    return render_template("tableEdits.html", update_status=update_status)
 
 # Insert Sale
 @app.route("/sales", methods=["POST"])

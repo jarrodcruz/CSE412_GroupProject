@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2 class="title">Products Page</h2>
+    <table class="table is-bordered is-striped is-fullwidth">
+      <thead>
+          <tr>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Class</th>
+              <th>Modify Date</th>
+              <th>Resistant</th>
+              <th>Is Allergic</th>
+              <th>Vitality Days</th>
+              <th>Category ID</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+          <tr>
+              <td>{{ product.productid }}</td>
+              <td>{{ product.productname }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.class_ }}</td>
+              <td>{{ product.modifydate }}</td>
+              <td>{{ product.resistant }}</td>
+              <td>{{ product.isallergic }}</td>
+              <td>{{ product.vitalitydays }}</td>
+              <td>{{ product.categoryid }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+

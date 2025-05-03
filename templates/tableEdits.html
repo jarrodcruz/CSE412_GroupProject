@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Insert -->
+<section class="section">
+    <div>
+        <p class="subtitle">
+            <strong> Insert a New Sale</strong>
+        </p>
+        <form>
+            <label for="SalesPerson">Sales Person ID: &nbsp;</label>
+            <input type="number" id="spID" minlength="1" maxlength="20" required>
+            <label for="Customer">&nbsp;Customer ID: &nbsp;</label>
+            <input type="number" id="cID" minlength="1" maxlength="20" required><br><br>
+            <label for="Product">Product ID: &nbsp;</label>
+            <input type="number" id="pID" minlength="1" maxlength="20" required>
+            <label for="Quantity">&nbsp;Quantity: &nbsp;</label>
+            <input type="number" id="qt" minlength="1" maxlength="20" required><br><br>
+            <label for="Discount">Discount: &nbsp;</label>
+            <input type="number" id="disc" minlength="4" maxlength="20" step="0.01" required>
+            <label for="totalPrice">&nbsp;Total Price:&nbsp;</label>
+            <input type="number" id="tp" minlength="4" maxlength="20" step="0.01" required><br><br>
+            <label for="salesDate">Sale Date:&nbsp;</label>
+            <input type="datetime-local" id="sd" required><br><br>
+            <button class="button is-white is-rounded">Submit Sale</button>
+        </form>
+    </div>
+</section>
+
+<!-- Delete -->
+<section class="section">
+    <div>
+        <p class="subtitle">
+            <strong> Delete Sales </strong>
+            <form action="{{ url_for('delete_product') }}" method="POST">
+                <label>&nbsp;Product Name:&nbsp;</label>
+                <input type="text" name="delete_productName" required><br><br>
+                <button class="button is-white is-rounded" type="submit">Delete Sales</button>
+            </form>
+            {% if delete_status %}
+            <div>
+                {{ delete_status }}
+            </div>
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+<!-- Update -->
+<section class="section">
+    <div>
+        <p class="subtitle">
+            <strong> Update Products </strong>
+            <form action="{{ url_for('update_product') }}" method="POST">
+                <label>&nbsp;Current Product Name:&nbsp;</label>
+                <input type="text" name="update_oldProductName" required><br><br>
+                <label>&nbsp;New Product Name:&nbsp;</label>
+                <input type="text" name="update_newProductName" required><br><br>
+                <button class="button is-white is-rounded" type="submit">Update Product</button>
+            </form>
+            {% if update_status %}
+            <div>
+                {{ update_status }}
+            </div>
+            {% endif %}
+        </p>
+    </div>
+</section>
+{% endblock %}

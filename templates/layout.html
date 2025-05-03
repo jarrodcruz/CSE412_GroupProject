@@ -1,58 +1,30 @@
-<!-- layout.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CSE412_Team42_App</title>
+  <title>CSE412_App</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
 </head>
 <body>
   <section class="section">
     <div class="container">
       <h1 class="title">
-        CSE412_Team42_Application
+        CSE412 Team42 Application
       </h1>
       <p class="subtitle">
-        <strong> Store Database Tracker</strong>!
+        <strong> Store Database Tracker</strong>
       </p>
       <div class="tabs is-centered">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="{{ url_for('get_sales') }}">Sales</a></li>
-            <li><a href="#">Customers</a></li>
-            <li><a href="#">Employees</a></li>
-            <li><a href="#">Products</a></li>
-        </ul>
+          <ul>
+              <li><a href="{{ url_for('table_edits') }}">Edit Tables</a></li>
+              <li><a href="{{ url_for('get_sales') }}">Sales</a></li>
+              <li><a href="{{ url_for('get_products') }}">Products</a></li>
+              <li><a href="{{ url_for('get_customers') }}">Customers</a></li>
+              <li><a href="{{ url_for('get_employees') }}">Employees</a></li>
+          </ul>
       </div>
       {% block content %}{% endblock %}
-      <!-- <a href="{{ url_for('get_sales') }}">
-        <button class="button is-white is-rounded">See store sales</button>
-      </a> -->
-    </div>
-  </section>
-  <section class="section">
-    <div>
-      <p class="subtitle">
-        <strong> Insert a New Sale</strong>
-        <form method="POST" action="{{ url_for('insert_sale') }}">
-          <label for="SalesPerson">Sales Person ID: &nbsp;</label>
-            <input type="number" name="salesperson" id="spID" minlength="1" maxlength="20" max="23" min="1" required>
-          <label for="Customer">&nbsp;Customer ID: &nbsp;</label>
-            <input type="number" name="customer" id="cID" minlength="1" maxlength="20" max="98759" min="1" required><br><br>
-          <label for="Product">Product ID: &nbsp;</label>
-            <input type="number" name="product" id="pID" minlength="1" maxlength="20" max="452" min="1" required>
-          <label for="Quantity">&nbsp;Quantity: &nbsp;</label>
-            <input type="number" name="quantity" id="qt" minlength="1" maxlength="20" min="0" required><br><br>
-          <label for="Discount">Discount: &nbsp;</label>
-            <input type="number" name="discount" id="disc" minlength="4" maxlength="20" step="0.01" min="0.00" required><br><br>
-          <label for="totalPrice">Total Price:&nbsp;</label>
-            <input type="number" name="totalprice" id="tp" minlength="4" maxlength="20" min="0.00" step="0.01" required><br><br>
-          <label for="salesDate">Sale Date:&nbsp;</label>
-            <input type="datetime-local" name="salesDate" id="sd" required><br><br>
-          <button class="button is-white is-rounded">Submit Sale</button>
-        </form>
-      </p>
     </div>
   </section>
 </body>

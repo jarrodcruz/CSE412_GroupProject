@@ -15,8 +15,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # init the database
 db.init_app(app)
 
-
-# dummy home page, we can add frontend
+# route to edit tables
 @app.route("/")
 def home():
     return render_template("layout.html")
@@ -25,21 +24,21 @@ def home():
 # get all customers, all fields
 @app.route("/customers", methods=["GET"])
 def get_customers():
-    customers = Customer.query.order_by(Customer.customerid).limit(1000).all()
+    customers = Customer.query.order_by(Customer.customerid).limit(100).all()
     return render_template("customers.html", customers=customers)
 
 
 # get all employees
 @app.route("/employees", methods=["GET"])
 def get_employees():
-    employees = Employee.query.order_by(Employee.employeeid).limit(1000).all()
+    employees = Employee.query.order_by(Employee.employeeid).limit(100).all()
     return render_template("employees.html", employees=employees)
 
 
 # get all products
 @app.route("/products", methods=["GET"])
 def get_products():
-    products = Product.query.order_by(Product.productid).limit(1000).all()
+    products = Product.query.order_by(Product.productid).limit(100).all()
     return render_template("products.html", products=products)
 
 
@@ -47,7 +46,7 @@ def get_products():
 @app.route("/sales", methods=["GET"])
 def get_sales():
     # sales = Sale.query.all()
-    sales = Sale.query.order_by(Sale.salesid).limit(1000).all()
+    sales = Sale.query.order_by(Sale.salesid.desc()).limit(100).all()
     return render_template("sales.html", sales=sales)
 
  
@@ -112,7 +111,7 @@ def insert_sale():
             productid=request.form['product'],
             quantity=request.form['quantity'],
             discount=request.form['discount'],
-            totalprice=request.form['totalprice'],
+            totalprice=0.0,
             salesdate=datetime.strptime(request.form['salesDate'], "%Y-%m-%dT%H:%M"),
             transactionnum=txnID
         )

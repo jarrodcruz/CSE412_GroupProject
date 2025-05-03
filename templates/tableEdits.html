@@ -1,29 +1,29 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<h2 class="title">Table Editing Page</h2>
+
 <!-- Insert -->
 <section class="section">
     <div>
         <p class="subtitle">
             <strong> Insert a New Sale</strong>
+            <form method="POST" action="{{ url_for('insert_sale') }}">
+                <label for="SalesPerson">Sales Person ID: &nbsp;</label>
+                <input type="number" name="salesperson" id="spID" minlength="1" maxlength="20" max="23" min="1" required>
+                <label for="Customer">&nbsp;Customer ID: &nbsp;</label>
+                <input type="number" name="customer" id="cID" minlength="1" maxlength="20" max="98759" min="1" required><br><br>
+                <label for="Product">Product ID: &nbsp;</label>
+                <input type="number" name="product" id="pID" minlength="1" maxlength="20" max="452" min="1" required>
+                <label for="Quantity">&nbsp;Quantity: &nbsp;</label>
+                <input type="number" name="quantity" id="qt" minlength="1" maxlength="20" min="0" required><br><br>
+                <label for="Discount">Discount: &nbsp;</label>
+                <input type="number" name="discount" id="disc" minlength="4" maxlength="20" step="0.01" min="0.00" max="1.00" required><br><br>
+                <label for="salesDate">Sale Date:&nbsp;</label>
+                <input type="datetime-local" name="salesDate" id="sd" required><br><br>
+                <button class="button is-white is-rounded">Submit Sale</button>
+            </form>
         </p>
-        <form>
-            <label for="SalesPerson">Sales Person ID: &nbsp;</label>
-            <input type="number" id="spID" minlength="1" maxlength="20" required>
-            <label for="Customer">&nbsp;Customer ID: &nbsp;</label>
-            <input type="number" id="cID" minlength="1" maxlength="20" required><br><br>
-            <label for="Product">Product ID: &nbsp;</label>
-            <input type="number" id="pID" minlength="1" maxlength="20" required>
-            <label for="Quantity">&nbsp;Quantity: &nbsp;</label>
-            <input type="number" id="qt" minlength="1" maxlength="20" required><br><br>
-            <label for="Discount">Discount: &nbsp;</label>
-            <input type="number" id="disc" minlength="4" maxlength="20" step="0.01" required>
-            <label for="totalPrice">&nbsp;Total Price:&nbsp;</label>
-            <input type="number" id="tp" minlength="4" maxlength="20" step="0.01" required><br><br>
-            <label for="salesDate">Sale Date:&nbsp;</label>
-            <input type="datetime-local" id="sd" required><br><br>
-            <button class="button is-white is-rounded">Submit Sale</button>
-        </form>
     </div>
 </section>
 
@@ -33,7 +33,7 @@
         <p class="subtitle">
             <strong> Delete Sales </strong>
             <form action="{{ url_for('delete_product') }}" method="POST">
-                <label>&nbsp;Product Name:&nbsp;</label>
+                <label>&nbsp;Product Name in Sale:&nbsp;</label>
                 <input type="text" name="delete_productName" required><br><br>
                 <button class="button is-white is-rounded" type="submit">Delete Sales</button>
             </form>
@@ -56,7 +56,7 @@
                 <input type="text" name="update_oldProductName" required><br><br>
                 <label>&nbsp;New Product Name:&nbsp;</label>
                 <input type="text" name="update_newProductName" required><br><br>
-                <button class="button is-white is-rounded" type="submit">Update Product</button>
+                <button class="button is-white is-rounded" type="submit">Update Products</button>
             </form>
             {% if update_status %}
             <div>

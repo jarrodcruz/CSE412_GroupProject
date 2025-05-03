@@ -58,7 +58,9 @@ class Sale(db.Model):
     __tablename__ = "sales"
 
     salesid = db.Column(db.Integer, primary_key=True)
-    salespersonid = db.Column(db.Integer, nullable=False)
+    salespersonid = db.Column(
+        db.Integer, db.ForeignKey("employees.employeeid"), nullable=False
+    )
     customerid = db.Column(
         db.Integer, db.ForeignKey("customers.customerid"), nullable=False
     )
@@ -70,7 +72,8 @@ class Sale(db.Model):
     totalprice = db.Column(db.Float)
     salesdate = db.Column(db.Date)
     transactionnum = db.Column(db.String(50), unique=True, nullable=False)
-
+    
+    employee = db.relationship("Employee", backref=db.backref("sales", lazy=True))
     customer = db.relationship("Customer", backref=db.backref("sales", lazy=True))
     product = db.relationship("Product", backref=db.backref("sales", lazy=True))
 

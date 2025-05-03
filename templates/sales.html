@@ -5,29 +5,37 @@
     <h2 class="title">Sales Page</h2>
     <table class="table is-bordered is-striped is-fullwidth">
       <thead>
-        <tr>
-          <th>Sale ID</th>
-          <th>Customer</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Discount</th>
-          <th>Total Price</th>
-          <th>Sales Date</th>
-          <th>Transaction #</th>
-        </tr>
+          <tr>
+              <th>Sale ID</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Discount</th>
+              <th>Total Price</th>
+              <th>Sold To</th>
+              <th>Sold By</th>
+              <th>Sold On</th>
+              <th>Transaction #</th>
+          </tr>
       </thead>
       <tbody>
         {% for sale in sales %}
-        <tr>
-          <td>{{ sale.salesid }}</td>
-          <td>{{ sale.customer.firstname }} {{ sale.customer.lastname }}</td>
-          <td>{{ sale.product.productname }}</td>
-          <td>{{ sale.quantity }}</td>
-          <td>{{ sale.discount }}</td>
-          <td>{{ sale.totalprice }}</td>
-          <td>{{ sale.salesdate }}</td>
-          <td>{{ sale.transactionnum }}</td>
-        </tr>
+          <tr>
+              <td>{{ sale.salesid }}</td>
+              <td>{{ sale.product.productname }}</td>
+              <td>{{ sale.quantity }}</td>
+              <td>{{ sale.discount }}</td>
+              <td>{{ "%.2f"|format(sale.quantity * sale.product.price * (1 - sale.discount)) }}</td>
+              <td>{{ sale.customer.firstname }} {{ sale.customer.lastname }}</td>
+              <td>{{ sale.employee.firstname }} {{ sale.employee.lastname }}</td>
+              <td>
+                  {% if sale.salesdate %}
+                  {{ sale.salesdate.strftime('%m-%d-%Y, %H:%M') }}
+                  {% else %}
+                  N/A
+                  {% endif %}
+              </td>
+              <td>{{ sale.transactionnum }}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>

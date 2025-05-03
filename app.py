@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from models import db, Customer, Employee, Product, Sale
-from sqlalchemy import desc, nullslast
+from datetime import datetime
+from sqlalchemy import func
+import uuid
 
 app = Flask(__name__)
 
@@ -94,6 +96,32 @@ def update_product():
         update_status = f"There are no products named '{productName_old}'"
     return render_template("tableEdits.html", update_status=update_status)
 
+# Insert Sale
+@app.route("/sales", methods=["POST"])
+def insert_sale():
+    max_id = db.session.query(func.max(Sale.salesid)).scalar() or 0
+    next_id = max_id + 1
 
+    random_uuid = uuid.uuid4()
+    txnID= str(random_uuid).replace('-','')[:25]
+    try:
+        new_sale = Sale(
+            salesid=next_id,
+            salespersonid=request.form['salesperson'],
+            customerid=request.form['customer'],
+            productid=request.form['product'],
+            quantity=request.form['quantity'],
+            discount=request.form['discount'],
+            totalprice=request.form['totalprice'],
+            salesdate=datetime.strptime(request.form['salesDate'], "%Y-%m-%dT%H:%M"),
+            transactionnum=txnID
+        )
+        db.session.add(new_sale)
+        db.session.commit()
+        return redirect(url_for("get_sales"))
+    except Exception as e:
+        db.session.rollback()
+        return f"Error Adding Sale: {str(e)}", 400
+    
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True, port="4000")

@@ -10,19 +10,19 @@
   <section class="section">
     <div class="container">
       <h1 class="title">
-        CSE412_Team42_Application
+        CSE412 Team42 Application
       </h1>
       <p class="subtitle">
         <strong> Store Database Tracker</strong>
       </p>
       <div class="tabs is-centered">
-        <ul>
-            <li><a href="{{ url_for('table_edits') }}">Table Edits</a></li>
-            <li><a href="{{ url_for('get_sales') }}">Sales</a></li>
-            <li><a href="{{ url_for('get_customers') }}">Customers</a></li>
-            <li><a href="{{ url_for('get_employees') }}">Employees</a></li>
-            <li><a href="{{ url_for('get_products') }}">Products</a></li>
-        </ul>
+          <ul>
+              <li><a href="{{ url_for('table_edits') }}">Edit Tables</a></li>
+              <li><a href="{{ url_for('get_sales') }}">Sales</a></li>
+              <li><a href="{{ url_for('get_products') }}">Products</a></li>
+              <li><a href="{{ url_for('get_customers') }}">Customers</a></li>
+              <li><a href="{{ url_for('get_employees') }}">Employees</a></li>
+          </ul>
       </div>
       {% block content %}{% endblock %}
     </div>

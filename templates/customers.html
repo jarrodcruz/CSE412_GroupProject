@@ -5,25 +5,25 @@
     <h2 class="title">Customers Page</h2>
     <table class="table is-bordered is-striped is-fullwidth">
       <thead>
-        <tr>
-          <th>Customer ID</th>
-          <th>First Name Name</th>
-          <th>Middle Initial</th>
-          <th>Last Name ID</th>
-          <th>City ID</th>
-          <th>Address</th>
-        </tr>
+          <tr>
+              <th>Customer ID</th>
+              <th>First Name</th>
+              <th>Middle Initial</th>
+              <th>Last Name</th>
+              <th>Address</th>
+              <th>City ID</th>
+          </tr>
       </thead>
       <tbody>
         {% for customer in customers %}
-        <tr>
-          <td>{{ customer.customerid }}</td>
-          <td>{{ customer.firstname }}</td>
-          <td>{{ customer.middleinitial }}</td>
-          <td>{{ customer.lastname }}</td>
-          <td>{{ customer.cityid }}</td>
-          <td>{{ customer.address }}</td>
-        </tr>
+          <tr>
+              <td>{{ customer.customerid }}</td>
+              <td>{{ customer.firstname }}</td>
+              <td>{{ customer.middleinitial }}</td>
+              <td>{{ customer.lastname }}</td>
+              <td>{{ customer.address }}</td>
+              <td>{{ customer.cityid }}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>

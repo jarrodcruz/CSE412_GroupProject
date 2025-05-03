@@ -3,6 +3,7 @@
 Our PostGreSQL web app.
 
 ## How to run:
+NOTE: The sales.csv, Team42_db.backup, Team42_db.sql, and Team42_db_long.sql files were all too large to upload to GitHub. They can be found in our group's canvas submission.
 
 1. Clone the GitHub repository
 2. Create a database named 412_group_project on localhost port 5432

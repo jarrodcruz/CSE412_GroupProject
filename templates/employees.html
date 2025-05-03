@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container">
+    <h2 class="title">Employee Page</h2>
+    <table class="table is-bordered is-striped is-fullwidth">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Middle Initial</th>
+          <th>Last Name ID</th>
+          <th>Birthday</th>
+          <th>Gender</th>
+          <th>City ID</th>
+          <th>Hire Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for employee in employees %}
+        <tr>
+          <td>{{ employee.employeeid }}</td>
+          <td>{{ employee.firstname }}</td>
+          <td>{{ employee.middleinitial }}</td>
+          <td>{{ employee.lastname }}</td>
+          <td>{{ employee.birthdate }}</td>
+          <td>{{ employee.gender }}</td>
+          <td>{{ employee.cityid }}</td>
+          <td>{{ employee.hiredate }}</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+

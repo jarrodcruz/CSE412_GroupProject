@@ -22,71 +22,74 @@ def home():
 # get all customers, all fields
 @app.route("/customers", methods=["GET"])
 def get_customers():
-    customers = Customer.query.all()  # Fetch all customers from the database
-    return jsonify(
-        [
-            {
-                "customerid": customer.customerid,
-                "firstname": customer.firstname,
-                "middleinitial": customer.middleinitial,
-                "lastname": customer.lastname,
-                "cityid": customer.cityid,
-                "address": customer.address,
-            }
-            for customer in customers
-        ]
-    )
+    customers = Customer.query.limit(20).all()
+    return render_template("customers.html", customers=customers)
+
+    # return jsonify(
+    #     [
+    #         {
+    #             "customerid": customer.customerid,
+    #             "firstname": customer.firstname,
+    #             "middleinitial": customer.middleinitial,
+    #             "lastname": customer.lastname,
+    #             "cityid": customer.cityid,
+    #             "address": customer.address,
+    #         }
+    #         for customer in customers
+    #     ]
+    # )
 
 
 # get all employees
 @app.route("/employees", methods=["GET"])
 def get_employees():
-    employees = Employee.query.all()
-    return jsonify(
-        [
-            {
-                "employeeid": employee.employeeid,
-                "firstname": employee.firstname,
-                "middleinitial": employee.middleinitial,
-                "lastname": employee.lastname,
-                "birthdate": employee.birthdate,
-                "gender": employee.gender,
-                "cityid": employee.cityid,
-                "hiredate": employee.hiredate,
-            }
-            for employee in employees
-        ]
-    )
+    employees = Employee.query.limit(20).all()
+    return render_template("employees.html", employees=employees)
+    # return jsonify(
+    #     [
+    #         {
+    #             "employeeid": employee.employeeid,
+    #             "firstname": employee.firstname,
+    #             "middleinitial": employee.middleinitial,
+    #             "lastname": employee.lastname,
+    #             "birthdate": employee.birthdate,
+    #             "gender": employee.gender,
+    #             "cityid": employee.cityid,
+    #             "hiredate": employee.hiredate,
+    #         }
+    #         for employee in employees
+    #     ]
+    # )
 
 
 # get all products
 @app.route("/products", methods=["GET"])
 def get_products():
-    products = Product.query.all()
-
-    return jsonify(
-        [
-            {
-                "productid": product.productid,
-                "productname": product.productname,
-                "price": product.price,
-                "categoryid": product.categoryid,
-                "class": product.class_,
-                "modifydate": product.modifydate,
-                "resistant": product.resistant,
-                "isallergic": product.isallergic,
-                "vitalitydays": product.vitalitydays,
-            }
-            for product in products
-        ]
-    )
+    products = Product.query.limit(20).all()
+    return render_template("products.html", products=products)
+    # return jsonify(
+    #     [
+    #         {
+    #             "productid": product.productid,
+    #             "productname": product.productname,
+    #             "price": product.price,
+    #             "categoryid": product.categoryid,
+    #             "class": product.class_,
+    #             "modifydate": product.modifydate,
+    #             "resistant": product.resistant,
+    #             "isallergic": product.isallergic,
+    #             "vitalitydays": product.vitalitydays,
+    #         }
+    #         for product in products
+    #     ]
+    # )
 
 
 # get all sales
 @app.route("/sales", methods=["GET"])
 def get_sales():
     # sales = Sale.query.all()
-    sales = Sale.query.limit(50).all()
+    sales = Sale.query.limit(20).all()
     return render_template("sales.html", sales=sales)
 
     # return jsonify(
@@ -105,7 +108,10 @@ def get_sales():
     #         for sale in sales
     #     ]
     # )
-
+    
+@app.route("/tableEdits")
+def table_edits():
+    return render_template("tableEdits.html")
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True, port="4000")

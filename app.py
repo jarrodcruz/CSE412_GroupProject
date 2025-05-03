@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, render_template, redirect, url_for
 from models import db, Customer, Employee, Product, Sale
+from datetime import datetime
+import uuid
 
 app = Flask(__name__)
 
@@ -106,6 +108,28 @@ def get_sales():
     #     ]
     # )
 
-
+# Insert Sale
+@app.route("/sales", methods=["POST"])
+def insert_sale():
+    random_uuid = uuid.uuid4()
+    txnID= str(random_uuid).replace('-','')[:25]
+    try:
+        new_sale = Sale(
+            salespersonid=request.form['salesperson'],
+            customerid=request.form['customer'],
+            productid=request.form['product'],
+            quantity=request.form['quantity'],
+            discount=request.form['discount'],
+            totalprice=request.form['totalprice'],
+            salesdate=datetime.strptime(request.form['salesDate'], "%Y-%m-%dT%H:%M"),
+            transactionnum=txnID
+        )
+        db.session.add(new_sale)
+        db.session.commit()
+        return redirect(url_for("get_sales"))
+    except Exception as e:
+        db.session.rollback()
+        return f"Error Adding Sale: {str(e)}", 400
+    
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True, port="4000")
